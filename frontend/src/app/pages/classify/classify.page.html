@@ -1,0 +1,45 @@
+<mat-toolbar color="primary" style="height: 3.25em; position: -webkit-sticky; position: sticky; z-index: 1000; top: 0;">
+	<mat-icon style="margin-right: 0.75em;">psychology</mat-icon>
+	<span>Clasificación de tumores cerebrales</span>
+</mat-toolbar>
+
+<div fxLayout="column" fxLayoutAlign="center center" style="width: 100%; padding: 5em;">
+
+	<ng-container *ngIf="_class == null">
+		<mat-spinner style="margin-bottom: 2em;"></mat-spinner>
+		<h2 style="color: gray;">Clasificando tumor</h2>
+	</ng-container>
+
+	<div *ngIf="_class != null" fxLayout="row" style="border-style: dashed; border-color: gray; border-width: 2px;">
+		<img [src]="_imageUrl">
+		<div fxLayout="column" fxLayoutAlign="space-between center" style="height: auto; width: 25em; padding: 4em 0em;">
+			<h1>
+				<b *ngIf="_class == 1">Glioma</b>
+				<b *ngIf="_class == 2">Meningioma</b>
+				<b *ngIf="_class == 3">Tumor pituitario</b>
+			</h1>
+			<div fxLayout="column" fxLayoutAlign="center center">
+				<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+					<h2 style="margin-right: 2em;">Precisión</h2>
+					<h2 *ngIf="_class == 1">86.10</h2>
+					<h2 *ngIf="_class == 2">97.61</h2>
+					<h2 *ngIf="_class == 3">88.62</h2>
+				</div>
+				<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+					<h2 style="margin-right: 2em;">Sensibilidad</h2>
+					<h2 *ngIf="_class == 1">84.89</h2>
+					<h2 *ngIf="_class == 2">97.55</h2>
+					<h2 *ngIf="_class == 3">89.68</h2>
+				</div>
+				<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+					<h2 style="margin-right: 2em;">Especificidad</h2>
+					<h2 *ngIf="_class == 1">95.82</h2>
+					<h2 *ngIf="_class == 2">97.69</h2>
+					<h2 *ngIf="_class == 3">94.90</h2>
+				</div>
+			</div>
+			<button mat-flat-button color="primary" (click)="_router.navigateByUrl('/upload')">Volver al inicio</button>
+		</div>
+	</div>
+
+</div>

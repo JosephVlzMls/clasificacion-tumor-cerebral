@@ -1,0 +1,51 @@
+<mat-toolbar color="primary" style="height: 3.25em; position: fixed; z-index: 1000; top: 0;">
+	<mat-icon style="margin-right: 0.75em;">psychology</mat-icon>
+	<span>Clasificación de tumores cerebrales</span>
+</mat-toolbar>
+
+<div fxLayout="column" fxLayoutAlign="space-between center" style="height: 100%; width: 20em; padding: 6em 2em 2em 2em; background-color: #EEE; position: fixed; z-index: 999; top: 0;">
+	
+	<!--
+	<div fxLayout="row" fxLayoutAlign="space-around center" style="height: 20%; width: 20em; padding-top: 6em; background-color: #EEE; position: fixed; z-index: 999; top: 0;">
+		<button mat-flat-button color="primary">Subir máscara</button>
+		<input type="file" id="maskExplorer" style="display: none;" (change)="onMaskChange($event.target.files[0])">
+	</div>
+	-->
+
+	<div fxLayout="column" fxLayoutAlign="start start" style="width: 100%;">
+
+		<mat-form-field appearance="fill" style="width: 100%; margin-bottom: 1em;">
+			<mat-label>Vista</mat-label>
+			<mat-select [(value)]="_view">
+				<mat-option [value]="1">Editor</mat-option>
+				<mat-option [value]="2" (click)="onLoadROI()">Región de interés</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<div fxLayout="column" fxLayoutAlign="start start" style="width: 100%;">
+			<div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;">
+				<span>Tamaño</span>
+				<span><b>{{_size}}</b></span>
+			</div>
+			<mat-slider [(ngModel)]="_size"  min="1" max="15" step="2" style="width: 100%;"></mat-slider>
+		</div>
+
+		<div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+			<button mat-flat-button [color]="_mode ? 'primary' : ''" style="width: 40%;" (click)="_mode = true">Lápiz</button>
+			<button mat-flat-button [color]="_mode ? '' : 'primary'" style="width: 40%;" (click)="_mode = false">Borrador</button>
+		</div>
+	
+	</div>
+
+	<div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+		<button mat-flat-button color="primary" style="width: 40%;" (click)="onClassify()">Clasificar</button>
+		<button mat-flat-button color="warn" style="width: 40%;" (click)="_router.navigateByUrl('/upload')">Cancelar</button>
+	</div>
+	
+</div>
+
+
+<div fxLayout="row" style="padding-top: 7.5em; padding-left: 23em;">
+	<canvas id="image" [class.hide]="_view != 1" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp()" (mousemove)="onMouseMove($event)"></canvas>
+	<img *ngIf="_view == 2 && _urlROI != null" [src]="_urlROI">
+</div>
