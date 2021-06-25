@@ -104,6 +104,8 @@ endfunction
 I = imread("public/image.png");
 M = imread("public/mask.png");
 
+[n, m] = size(I)
+
 Z = M - imerode(M, strel("disk", 3, 0));
 R = I;
 G = I;
@@ -111,7 +113,7 @@ B = I;
 R(Z == 1) = 255;
 G(Z == 1) = 0;
 B(Z == 1) = 0;
-P = uint8(zeros(512, 512, 3));
+P = uint8(zeros(n, m, 3));
 P(:, :, 1) = R;
 P(:, :, 2) = G;
 P(:, :, 3) = B;
